@@ -16,6 +16,10 @@ public class EmployeeController {
      @PostMapping
      public void addEmployee(@RequestBody  Employee employee){
         employeeList.add(employee);
-        System.out.println(employee);
+
+    }
+    @GetMapping
+    public List<Employee> getALl(){
+         return employeeList;
     }
 }
