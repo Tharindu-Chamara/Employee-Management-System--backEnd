@@ -1,25 +1,27 @@
 package edu.icet.demo.controller;
 
 import edu.icet.demo.dto.Employee;
+import edu.icet.demo.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/employee")
 @CrossOrigin
+@RequiredArgsConstructor
 public class EmployeeController {
 
-    List<Employee> employeeList = new ArrayList<>();
+    private final EmployeeService service;
 
      @PostMapping
      public void addEmployee(@RequestBody  Employee employee){
-        employeeList.add(employee);
+        service.addEmployee(employee);
+     }
 
-    }
-    @GetMapping
-    public List<Employee> getALl(){
-         return employeeList;
-    }
+     @GetMapping
+     public Employee getALl(){
+        return service.getAllEmployees();
+     }
 }
