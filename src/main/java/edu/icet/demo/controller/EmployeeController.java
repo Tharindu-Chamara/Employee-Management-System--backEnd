@@ -5,6 +5,7 @@ import edu.icet.demo.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -21,7 +22,7 @@ public class EmployeeController {
      }
 
      @GetMapping
-     public Employee getALl(){
+     public List<Employee> getAll(){
         return service.getAllEmployees();
      }
 }

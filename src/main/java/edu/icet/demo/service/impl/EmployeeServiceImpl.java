@@ -8,6 +8,9 @@ import edu.icet.demo.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -23,8 +26,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         Iterable<EmployeeEntity> all = repository.findAll();
-        return mapper.convertValue(all, Employee.class);
+        List<Employee> list = new ArrayList<>();
+        for(EmployeeEntity entity :all){
+            list.add( mapper.convertValue(entity, Employee.class));
+        }
+        return list;
      }
 }
