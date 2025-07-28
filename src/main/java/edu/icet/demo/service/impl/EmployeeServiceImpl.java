@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -41,5 +42,38 @@ public class EmployeeServiceImpl implements EmployeeService {
             repository.deleteById(id);
         }
 
+    }
+
+    @Override
+    public void updateEmployee(Integer id, Employee employee) {
+
+        if (id == null || employee == null) {
+            throw new IllegalArgumentException("id and employee cannot be null");
+        }
+
+        EmployeeEntity entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found with ID: " + id));
+
+        try {
+            mapper.updateValue(entity, employee);
+            repository.save(entity);
+        } catch (Exception e) {
+            throw  new RuntimeException("Employee update failed", e);
+        }
+    }
+
+    @Override
+    public Employee findById(Integer id) {
+        Optional<EmployeeEntity> byId = repository.findById(id);
+        if(byId.isPresent()){
+          return mapper.convertValue(byId.get(),Employee.class);
+       }
+       return  new Employee();
+
+    }
+
+    @Override
+    public Employee findByFirstName(String name) {
+        return  mapper.convertValue(repository.findByFirstName(name),Employee.class);
     }
 }

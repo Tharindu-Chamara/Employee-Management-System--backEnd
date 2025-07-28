@@ -10,5 +10,11 @@ public interface EmployeeService {
     List<Employee> getAllEmployees();
 
     void deleteEmployee(Integer id);
+
+    void updateEmployee(Integer id,Employee employee);
+
+    Employee findById(Integer id);
+
+    Employee findByFirstName(String name);
 }
 
